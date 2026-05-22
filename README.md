@@ -36,6 +36,8 @@ exists.
 - `Shark Reflex Score` turns attention, confidence, urgency, and entropy into
   an interpreted execution posture.
 - `Reflex Router` exposes the final guarded decision for downstream execution.
+- `Upstream Context Adapter` converts telemetry, thermodynamic PID stress, and
+  Nash context into the normalized Shark route input with a visible trace.
 
 ## Run
 

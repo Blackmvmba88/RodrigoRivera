@@ -96,3 +96,10 @@ class ReflexDecision:
     reasons: tuple[str, ...]
     memory_hits: tuple[TrapPattern, ...] = ()
 
+
+@dataclass(frozen=True, slots=True)
+class SharkRouteInput:
+    market: MarketSnapshot
+    confidence: float
+    urgency: float
+    trace: tuple[str, ...] = ()

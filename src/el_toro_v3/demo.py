@@ -4,6 +4,12 @@ from __future__ import annotations
 
 from .domain import MarketSnapshot, PositionState
 from .router import SharkIntelligence
+from .upstream import (
+    NashContext,
+    TelemetryFrame,
+    ThermodynamicPIDState,
+    UpstreamContextAdapter,
+)
 
 
 def main() -> None:
@@ -70,7 +76,19 @@ def main() -> None:
     print()
     print("predator_memory=" + ", ".join(pattern.value for pattern in shark.memory.recent_patterns("SOL-USD")))
 
+    route_input = UpstreamContextAdapter().adapt(
+        TelemetryFrame("NVDA", 0.68, 0.72, 0.25, 0.81, 0.58, 0.46),
+        ThermodynamicPIDState(thermal_pressure=0.76, control_error=0.82, impulse=0.64),
+        NashContext(edge_confidence=0.88, conflict=0.18, opponent_pressure=0.70),
+    )
+    decision = shark.route_input(route_input)
+
+    print()
+    print(f"[upstream adapter] {decision.symbol}")
+    print(f"confidence={route_input.confidence:.2f} urgency={route_input.urgency:.2f}")
+    print("trace=" + "; ".join(route_input.trace))
+    print(f"posture={decision.posture.value} action={decision.action.value}")
+
 
 if __name__ == "__main__":
     main()
-

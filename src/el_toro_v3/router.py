@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .attention import SharkAttention
-from .domain import MarketSnapshot, PositionState, ReflexDecision
+from .domain import MarketSnapshot, PositionState, ReflexDecision, SharkRouteInput
 from .memory import PredatorMemory
 from .reflex import ReflexEngine
 from .scoring import SharkReflexScorer
@@ -54,3 +54,14 @@ class SharkIntelligence:
             memory_hits=memory_hits,
         )
 
+    def route_input(
+        self,
+        route_input: SharkRouteInput,
+        position: PositionState | None = None,
+    ) -> ReflexDecision:
+        return self.route(
+            route_input.market,
+            route_input.confidence,
+            route_input.urgency,
+            position,
+        )

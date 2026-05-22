@@ -6,7 +6,10 @@ The Shark layer sits after upstream context engines and before any execution
 surface.
 
 ```text
-MarketSnapshot
+TelemetryFrame + ThermodynamicPIDState + NashContext
+  -> UpstreamContextAdapter
+  -> SharkRouteInput
+  -> MarketSnapshot
   -> SharkAttention
   -> SharkReflexScorer
   -> ReflexEngine
@@ -28,11 +31,15 @@ data.
 | `scoring.py` | Shark Reflex Score and posture bands |
 | `memory.py` | Trap event recording and recent-pattern lookup |
 | `router.py` | Single decision surface for the future execution guard |
+| `upstream.py` | Context adapter from telemetry, PID stress, and Nash state |
 
-## Next integration seam
+## Current upstream seam
 
-The next upstream adapter should convert telemetry, PID state, and Nash output
-into a normalized `MarketSnapshot`, `confidence`, and `urgency` triple. The
-execution side should consume `ReflexDecision` without reaching backward into
-market feature calculation.
+`UpstreamContextAdapter` converts telemetry into a normalized `MarketSnapshot`,
+derives confidence from Nash edge and conflict, and derives urgency from PID
+stress plus opponent pressure. It returns a `SharkRouteInput` with a short trace
+so those inputs stay inspectable before routing.
 
+The next live adapter should feed those upstream contracts from paper-trading
+telemetry without letting execution code reach backward into market feature
+calculation.

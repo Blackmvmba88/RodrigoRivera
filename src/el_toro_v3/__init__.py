@@ -6,10 +6,17 @@ from .domain import (
     ReflexAction,
     ReflexDecision,
     ReflexPosture,
+    SharkRouteInput,
     TrapPattern,
 )
 from .memory import PredatorMemory
 from .router import SharkIntelligence
+from .upstream import (
+    NashContext,
+    TelemetryFrame,
+    ThermodynamicPIDState,
+    UpstreamContextAdapter,
+)
 
 __all__ = [
     "MarketSnapshot",
@@ -18,7 +25,11 @@ __all__ = [
     "ReflexAction",
     "ReflexDecision",
     "ReflexPosture",
+    "SharkRouteInput",
     "SharkIntelligence",
+    "NashContext",
+    "TelemetryFrame",
+    "ThermodynamicPIDState",
     "TrapPattern",
+    "UpstreamContextAdapter",
 ]
-

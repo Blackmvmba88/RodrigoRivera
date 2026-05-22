@@ -41,12 +41,15 @@ exists.
 - `First Breath` runs one paper heartbeat with a non-blocking regime Hydra,
   dynamic threat threshold, paper account, SQLite journal, and selective
   situation memory.
+- `Replay Engine` steps JSONL BTCUSDT scenarios through First Breath and emits
+  behavior reports plus periodic Hydra snapshots.
 
 ## Run
 
 ```bash
 PYTHONPATH=src python3 -m el_toro_v3.demo
 PYTHONPATH=src python3 -m el_toro_v3.first_breath
+PYTHONPATH=src python3 -m el_toro_v3.replay --scenario spread_shock --speed 20x
 python3 -m unittest discover -s tests -v
 ```
 

@@ -266,6 +266,10 @@ class FirstBreathStore:
         row = self._db.execute("SELECT COUNT(*) FROM heartbeats").fetchone()
         return int(row[0]) if row else 0
 
+    def situation_count(self) -> int:
+        row = self._db.execute("SELECT COUNT(*) FROM situation_memory").fetchone()
+        return int(row[0]) if row else 0
+
     def close(self) -> None:
         self._db.close()
 
@@ -466,6 +470,8 @@ def _zscore(value: float, history: deque[float]) -> float:
 
 def _pressure(value: float, history: deque[float]) -> float:
     if len(history) < 2:
+        return 0.0
+    if value <= mean(history) * 1.50:
         return 0.0
     return clamp_unit(abs(_zscore(value, history)) / 3.0)
 

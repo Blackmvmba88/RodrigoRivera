@@ -66,3 +66,24 @@ the latest valid hypothesis and submits the newest pulse afterward, so the
 decision path never waits for cognition. The first `situation_memory` table is
 kept intentionally small: `id`, `signature`, `action_taken`, `outcome`, and
 `regime`.
+
+## Replay Engine
+
+`replay.py` reads versioned BTCUSDT JSONL scenarios from `replay/btcusdt`.
+Replay swaps the live worker for a synchronous one-pulse-lag Hydra perception
+so repeated stimuli keep deterministic route order while preserving Toro's
+latest-valid-hypothesis rule.
+
+```text
+ReplayScenario -> ReplayRunner -> FirstBreathRuntime -> SQLite
+                         |
+                         +-> ReplayReport
+                               heartbeats
+                               routes and actions
+                               regimes and memory writes
+                               HydraSnapshot sequence
+```
+
+The bundled `calm_drift`, `spread_shock`, and `liquidity_hunt` scenarios are
+synthetic behavioral fixtures. They train repeatability and regression
+visibility before any live exchange feed is introduced.

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "el-toro-v3"
+version = "0.1.0"
+description = "Clean-room Predator Intelligence layer for El Toro V3."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "BlackMamba Records" }]
+
+[project.scripts]
+el-toro-shark-demo = "el_toro_v3.demo:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

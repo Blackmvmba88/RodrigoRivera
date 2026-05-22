@@ -43,3 +43,26 @@ so those inputs stay inspectable before routing.
 The next live adapter should feed those upstream contracts from paper-trading
 telemetry without letting execution code reach backward into market feature
 calculation.
+
+## First Breath
+
+`first_breath.py` adds the first paper loop around that seam:
+
+```text
+MarketPulse -> MedusaPerception -> RegimeAnomalyHydra
+      |                |
+      |                v
+      |        latest RegimeHypothesis
+      v                |
+FirstBreathRuntime ----+
+  -> dynamic threat threshold
+  -> Shark route only on reflex interrupt
+  -> paper account
+  -> SQLite heartbeat journal + selective situation memory
+```
+
+Medusa receives pulse updates on a background worker. The Toro heartbeat reads
+the latest valid hypothesis and submits the newest pulse afterward, so the
+decision path never waits for cognition. The first `situation_memory` table is
+kept intentionally small: `id`, `signature`, `action_taken`, `outcome`, and
+`regime`.

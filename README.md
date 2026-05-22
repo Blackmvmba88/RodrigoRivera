@@ -38,15 +38,20 @@ exists.
 - `Reflex Router` exposes the final guarded decision for downstream execution.
 - `Upstream Context Adapter` converts telemetry, thermodynamic PID stress, and
   Nash context into the normalized Shark route input with a visible trace.
+- `First Breath` runs one paper heartbeat with a non-blocking regime Hydra,
+  dynamic threat threshold, paper account, SQLite journal, and selective
+  situation memory.
 
 ## Run
 
 ```bash
 PYTHONPATH=src python3 -m el_toro_v3.demo
+PYTHONPATH=src python3 -m el_toro_v3.first_breath
 python3 -m unittest discover -s tests -v
 ```
 
 ## Boundary
 
-This version is a deterministic local core fed by synthetic snapshots. It does
-not connect to exchanges, place orders, or claim live execution safety yet.
+This version is a deterministic local core fed by synthetic snapshots and a
+paper heartbeat feed. It does not connect to exchanges, place orders, or claim
+live execution safety yet.
